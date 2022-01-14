@@ -17,7 +17,7 @@ import signal
 
 import time
 from uuid import uuid4
-from yaml import load, YAMLError
+from yaml import load, YAMLError, FullLoader
 # ROS
 import rospy
 import rospkg
@@ -49,7 +49,7 @@ class DialogflowClient(object):
         file_dir = rp.get_path('dialogflow_ros') + '/config/context.yaml'
         with open(file_dir, 'r') as f:
             try:
-                self.phrase_hints = load(f)
+                self.phrase_hints = load(f, Loader=FullLoader)
             except YAMLError:
                 rospy.logwarn("DF_CLIENT: Unable to open phrase hints yaml file!")
                 self.phrase_hints = []
@@ -191,6 +191,7 @@ class DialogflowClient(object):
         query_input = QueryInput(audio_config=self._audio_config)
         contexts = utils.converters.contexts_msg_to_struct(self.last_contexts)
         params = QueryParameters(contexts=contexts)
+        # params = QueryParameters()
         req = StreamingDetectIntentRequest(
                 session=self._session,
                 query_input=query_input,

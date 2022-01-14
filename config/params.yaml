@@ -1,8 +1,8 @@
 results_topic: "/dialogflow_client/results"
 requests_topic: "/dialogflow_client/requests"
-project_id: "liquid-force-161121"
+project_id: "dialogue-navigation"
 play_audio: true
-use_audio_server: false
+use_audio_server: true
 server_name: "127.0.0.1"
 port: 4444
-debug: false
+debug: true
